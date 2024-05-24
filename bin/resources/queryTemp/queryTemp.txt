@@ -1,0 +1,8 @@
+WITH column_counts AS (
+    SELECT 
+        (SELECT COUNT(*) FROM @{table}) AS A,
+        @{target_columns}
+    FROM DUAL
+)
+
+@{mainQuery}

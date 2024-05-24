@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="@{reportName}" pageWidth="2300" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="bb6b50bf-497d-4689-9b0b-17e3e1cfb483">
+	<property name="ireport.zoom" value="1.464100000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="query" class="java.lang.String"/>
+	<parameter name="actUserId" class="java.lang.String"/>
+	<parameter name="actUserName" class="java.lang.String"/>
+	<parameter name="userId" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="ip" class="java.lang.String"/>
+	<parameter name="insertTime" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[$P!{query}]]>
+	</queryString>
+	<!--field 세팅-->
+
+	<field name="act_user_id" class="java.lang.String"/>
+	<field name="act_user_name" class="java.lang.String"/>
+	<field name="actuserdeptname" class="java.lang.String"/>
+	<field name="ip" class="java.lang.String"/>
+	<field name="user_id" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="deptname" class="java.lang.String"/>
+	<field name="job_type" class="java.lang.String"/>
+	<field name="insert_time" class="java.lang.Long"/>
+
+	<pageHeader>
+		<band height="200">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.intValue() == 1? new Boolean(true) : new Boolean(false)]]></printWhenExpression>
+			<textField>
+				<reportElement x="1" y="0" width="2299" height="30" uuid="e7c578b3-3945-4a82-aab4-1b1376b9d3a1"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["사용자 등록/삭제 이력"]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd HH:mm:ss">
+				<reportElement x="1" y="30" width="2299" height="30" uuid="0b556434-732f-4037-bf0b-694029f16f98"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="malgun" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="60" width="2299" height="20" forecolor="#000000" backcolor="#CCCCCC" uuid="84cc6016-7567-4b9d-b448-64aea404685a"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[검색조건]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="ContainerHeight" mode="Opaque" x="0" y="80" width="1040" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="84cc6016-7567-4b9d-b448-64aea404685a"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[수행자ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="1040" y="80" width="1040" height="20" uuid="7092d53d-02cf-4049-b116-4fbfd37310b5"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="malgun" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{actUserId} == null ? "" : $P{actUserId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="ContainerHeight" mode="Opaque" x="0" y="100" width="1040" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="84cc6016-7567-4b9d-b448-64aea404685a"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[수행자]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="1040" y="100" width="1040" height="20" uuid="7092d53d-02cf-4049-b116-4fbfd37310b5"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="malgun" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{actUserName} == null ? "" : $P{actUserName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="ContainerHeight" mode="Opaque" x="0" y="120" width="1040" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="0d61f1aa-2b38-4566-b872-2a4a49904356"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IP]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="1040" y="120" width="1040" height="20" uuid="c543d604-3c10-4efc-95ef-6e826171ff9f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="malgun" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ip} == null ? "" : $P{ip}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="ContainerHeight" mode="Opaque" x="0" y="140" width="1040" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="f8c22912-67b8-41df-a621-5d8aac042763"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[사용자ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="1040" y="140" width="1040" height="20" uuid="37663ebe-e607-4988-b4fd-6a96d3b8f8de"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="malgun" isBold="false"/>
+				</textElement>
+				<!-- <textFieldExpression><![CDATA[$P{detailRequestType} == null ?  "" :
+$P{detailRequestType}.equals( "AR" ) ?  "권한추가" :
+$P{detailRequestType}.equals( "DP" ) ?  "권한삭제" : ""]]></textFieldExpression> -->
+				<textFieldExpression><![CDATA[$P{userId} == null ? "" : $P{userId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="ContainerHeight" mode="Opaque" x="0" y="160" width="1040" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="238442d6-02d1-44c4-b0de-b208b43a8958"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[사용자이름]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="1040" y="160" width="1040" height="20" uuid="38fcae8c-da08-4635-9808-731254587443"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="malgun" isBold="false"/>
+				</textElement>
+				<!-- <textFieldExpression><![CDATA[$P{status} == null ?  "" :
+$P{status}.equals( "REJECT" ) ? "반려" :
+$P{status}.equals( "APPROVAL" ) ? "승인" : ""]]></textFieldExpression>
+			</textField> -->
+				<textFieldExpression><![CDATA[$P{name} == null ? "" : $P{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="ContainerHeight" mode="Opaque" x="0" y="180" width="1040" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="adba2362-b125-4113-af66-9a1d021c608b"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[일자]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="1040" y="180" width="1040" height="20" uuid="2efa3f61-82b7-4e40-babd-28d8f5b9f137"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="malgun" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{insertTime} == null ? "" : $P{insertTime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="190" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="84cc6016-7567-4b9d-b448-64aea404685a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[요청 OID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="190" y="0" width="129" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="a81f6a48-458d-4515-93bb-96becd2d4c56"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[승인요청일]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="319" y="0" width="80" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="9ee4ae11-0b91-45b6-8b79-19f0a7acf893"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[요청자 ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="399" y="0" width="149" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="9da1ecb3-1728-4965-9bbe-4eafa1abb816"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[요청자 명]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="548" y="0" width="132" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="94d94473-eeb5-4272-aec4-f31d21e14270"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[상세 요청타입]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="680" y="0" width="150" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="69e8c79d-1c44-4c49-8dc6-6c26399bc4a2"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[처리상태]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="830" y="0" width="140" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="3a6d35e6-7baa-47cc-8dbc-26b546047a4c"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[요청 처리자]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="970" y="0" width="180" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="71957664-df8f-48d3-8872-dd4e1ab3c879"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[요청 처리일]]></text>
+			</staticText>
+			
+			<staticText>
+				<reportElement mode="Opaque" x="1150" y="0" width="170" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="0bd55458-8359-4443-8370-ab35f81cf163"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[부서명]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1320" y="0" width="140" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="11ec685f-574a-4732-9ec9-bd36595165f5"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[부서 이동일시]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1460" y="0" width="150" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="84cc6016-7567-4b9d-b448-64aea404685a"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[직급명]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1610" y="0" width="181" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="31147964-036a-4aff-bb02-2a902a52bded">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[직위명]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1791" y="0" width="260" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="69b86511-532a-4e2d-8068-19ab598947f9"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[요청사유]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2051" y="0" width="249" height="20" forecolor="#000000" backcolor="#81CCF7" uuid="9762ab00-4e6c-490f-97e4-1ffb368efc78"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[반려 사유]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<!-- column1 -->
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="190" height="20" uuid="6e257d2d-c87b-4ab2-83bd-17d455334120"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{act_user_id} == null ? "" : $F{act_user_id}]]></textFieldExpression>
+			</textField>
+			<!-- column2 -->
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="190" y="0" width="129" height="20" uuid="412952f7-8d93-42bf-a3e6-16342bd4f164"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{act_user_name} == null ? "" : $F{act_user_name}]]></textFieldExpression>
+			</textField>
+			
+			<!-- column3 -->
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="319" y="0" width="80" height="20" uuid="694f2cdc-d963-4d0e-ad08-720c58da778f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{actuserdeptname} == null ? "" : $F{actuserdeptname}]]></textFieldExpression>
+			</textField>
+			
+			<!-- column4 -->
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="399" y="0" width="149" height="20" uuid="906a7b27-a3a9-4f6c-89fd-a55e78e737b3"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ip} == null ? "" : $F{ip}]]></textFieldExpression>
+			</textField>
+			
+			<!-- column5 -->
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="548" y="0" width="132" height="20" uuid="bc1943b3-af11-418f-8697-8645395a10a3"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{user_id} == null ? "" : $F{user_id}]]></textFieldExpression>
+			</textField>
+
+			<!-- column6 -->
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="680" y="0" width="150" height="20" uuid="17280fa9-1e7c-425e-9a9f-8dfd681c39ca"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name} == null ? "" : $F{name}]]></textFieldExpression>
+			</textField>
+
+			<!-- column7 -->
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="830" y="0" width="140" height="20" uuid="8114043b-1699-4408-9f3c-5c7535f00129"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deptname} == null ? "" : $F{deptname}]]></textFieldExpression>
+			</textField>
+
+			<!-- column8 -->
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="970" y="0" width="180" height="20" uuid="001ee284-96b6-4f21-a2a6-6275b4485a65"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_type}.equals( "REGISTER" ) ? "등록" :
+											  $F{job_type}.equals( "DELETE" ) ? "삭제" : ""]]></textFieldExpression>
+			</textField>
+
+			<!-- column9 -->
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="1150" y="0" width="170" height="20" uuid="6e257d2d-c87b-4ab2-83bd-17d455334120"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insert_time} == 0 ? "" : new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date($F{insert_time}))]]></textFieldExpression>
+			</textField>
+<!-- 
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="1320" y="0" width="140" height="20" uuid="a483b54d-f57a-43da-9347-3af116181035"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dept_move_time}== 0 ? "" : new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date($F{dept_move_time}))]]></textFieldExpression>
+			</textField>
+
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="1460" y="0" width="150" height="20" uuid="d0afcbb2-ce40-48c5-9a88-001692453b9a"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grade_name} == null ? "" : $F{grade_name}]]></textFieldExpression>
+			</textField>
+
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="1610" y="0" width="181" height="20" uuid="c5750364-becd-4649-91c8-f4146e8d6b0f"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{position_name} == null ? "" : $F{position_name}]]></textFieldExpression>
+			</textField>
+
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="1791" y="0" width="260" height="20" uuid="35c05029-d8ee-4d0c-ae0c-338fb6de30dd"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{request_reason} == null ? "" : $F{request_reason}]]></textFieldExpression>
+			</textField>
+			
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="2051" y="0" width="249" height="20" uuid="c6846f64-a382-4b8e-bd38-0a15c9d15a5e"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="malgun" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reject_reason} == null ? "" : $F{reject_reason}]]></textFieldExpression>
+			</textField> -->
+		</band>
+	</detail>
+</jasperReport>
