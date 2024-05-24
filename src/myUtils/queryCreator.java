@@ -23,9 +23,9 @@ public class queryCreator {
 	 * 4. 콘솔 내용을 복사하거나 outputPath에 생성된 파일에서 결과물을 확인한다.
 	 * 5. \n을 vscode등의 에디터로 replace하여 가시성을 좋게 한다.
 	 * */
-	private static String generateTemplate() throws IOException {
-		String fileName = "/queryTemp.txt";
-		String path = "src/resources/queryTemp";
+	private static void generateTemplate() throws IOException {
+		String fileName = "/selectQueryTemp.txt";
+		String path = "src/resources/selectQueryTemp";
 		String outputPath = "src/resources/output/output.txt";
 
 		File file = new File(path);
@@ -53,8 +53,8 @@ public class queryCreator {
 				replacedMainSentences.add(temp);
 			}
 				
-			String toInsert = String.join(", \\n", replacedSentences);
-			String insertToMain = String.join(" \\n", replacedMainSentences);
+			String toInsert = String.join(",\r\n        ", replacedSentences);
+			String insertToMain = String.join(" \r\n", replacedMainSentences);
 			
 			List<String> lines = Files.readAllLines(Paths.get(target));
 			List<String> modifiedLines = lines.stream()
@@ -69,6 +69,6 @@ public class queryCreator {
 		catch(Exception e) {
 			System.out.println();
 		}
-		return null;
 	}
+	
 }
