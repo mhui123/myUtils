@@ -1,0 +1,74 @@
+{
+	"bds_im_user_test":
+	{
+		"entityNameKr": "테스트",
+		"entityNameEn": "test",
+		"hasCreate": "N",
+		"hasUpdateAndDelete": "[]",
+		"rowsPerPage": "N",
+		"columns": [
+			{
+				"oid":
+				{
+					"columnType": "String",
+					"columnSize": "36",
+					"notNull": "Y",
+					"primaryKey": "Y",
+					"unique": "N",
+					"includeKr": "N",
+					"header": "N",
+					"form": "N",
+					"condition": "N",
+					"messageKr": "객체 OID",
+					"messageEn": "OID"
+				}
+			},
+			{
+				"userId":
+				{
+					"columnType": "String",
+					"columnSize": "50",
+					"header": "Y",
+					"form": "Y",
+					"condition": "Y",
+					"validation": "required",
+					"updateFormItem": "Y",
+					"updateMode": "invisible",
+					"messageKr": "칼럼명한국어",
+					"messageEn": "칼럼명영어",
+					"formOrder": 1
+				}
+			}, {
+				"userNm":
+				{
+					"columnType": "String",
+					"columnSize": "50",
+					"header": "Y",
+					"form": "Y",
+					"condition": "Y",
+					"validation": "required",
+					"updateFormItem": "Y",
+					"updateMode": "invisible",
+					"messageKr": "칼럼명한국어",
+					"messageEn": "칼럼명영어",
+					"formOrder": 2
+				}
+			}, {
+				"age":
+				{
+					"columnType": "String",
+					"columnSize": "50",
+					"header": "Y",
+					"form": "Y",
+					"condition": "Y",
+					"validation": "required",
+					"updateFormItem": "Y",
+					"updateMode": "invisible",
+					"messageKr": "칼럼명한국어",
+					"messageEn": "칼럼명영어",
+					"formOrder": 3
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,29 @@
+{
+	"@{tableNm}":
+	{
+		"entityNameKr": "@{entityNmKor}",
+		"entityNameEn": "@{entityNmEng}",
+		"hasCreate": "N",
+		"hasUpdateAndDelete": "[]",
+		"rowsPerPage": "N",
+		"columns": [
+			{
+				"oid":
+				{
+					"columnType": "String",
+					"columnSize": "36",
+					"notNull": "Y",
+					"primaryKey": "Y",
+					"unique": "N",
+					"includeKr": "N",
+					"header": "N",
+					"form": "N",
+					"condition": "N",
+					"messageKr": "객체 OID",
+					"messageEn": "OID"
+				}
+			},
+			"@{columns}"
+		]
+	}
+}
