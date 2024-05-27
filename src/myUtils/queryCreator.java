@@ -25,7 +25,7 @@ public class queryCreator {
 	 * */
 	private static void generateTemplate() throws IOException {
 		String fileName = "/selectQueryTemp.txt";
-		String path = "src/resources/selectQueryTemp";
+		String path = "src/resources/queryTemp";
 		String outputPath = "src/resources/output/output.txt";
 
 		File file = new File(path);
@@ -67,7 +67,7 @@ public class queryCreator {
 			Files.write(Paths.get(outputPath), modifiedTemplate.getBytes());
 		}
 		catch(Exception e) {
-			System.out.println();
+			e.printStackTrace();
 		}
 	}
 	
