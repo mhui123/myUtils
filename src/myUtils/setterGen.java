@@ -3,7 +3,6 @@ package myUtils;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import myUtils.setterClass.ApiVo;
@@ -17,8 +16,8 @@ public class setterGen {
 	
 	/*
 	 * setTarget : setter 대상
-	 * resource : getter로 데이터를 불러올 객체
-	 * vars : setter를 작성할 변수목록
+	 * 1. setter를 만들 객체를 myUtils/setterClass에 위치시킨다.
+	 * 2. Class<?> targetClass 의 대상객체를 맞춰준다.
 	 * 
 	 * 결과 : 콘솔창에 출력된 setter 목록을 확인 
 	 * 
@@ -26,7 +25,8 @@ public class setterGen {
 	private static void generateTemplate() throws IOException {
 		String setTarget = "userdetail";
 		String resource = "vo";
-		List<String> vars = makeListParams();
+		Class<?> targetClass = new ApiVo().getClass(); //대상객체
+		List<String> vars = makeListParams(targetClass);
 		
 		try {
 			for(int i = 0; i < vars.size(); i ++) {
@@ -46,25 +46,16 @@ public class setterGen {
 		}
 	}
 	
-	private static List<String> makeListParams() {
+	private static List<String> makeListParams(Class<?> targetClass) {
 		List<String> listParams = new ArrayList<>();
-		ApiVo vo = new ApiVo();
-		Class<? extends ApiVo> objClass = vo.getClass();
+		
+		Class<?> objClass = targetClass;
 		for(Field field : objClass.getDeclaredFields()) {
 			field.setAccessible(true);
 			String fieldName = field.getName();
 			listParams.add(fieldName);
 		}
 		
-//		String listParam = "";
-//		for(int i = 0; i < listParams.size(); i++) {
-//			String fieldName = listParams.get(i);
-//			if(i == listParams.size() -1) {
-//				listParam += "\"" + fieldName + "\"";
-//			} else {
-//				listParam += "\"" + fieldName + "\",";
-//			}
-//		}
 		return listParams;
 	}
 }
