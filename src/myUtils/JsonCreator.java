@@ -6,9 +6,11 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import myUtils.setterClass.JsonTemp;
@@ -85,28 +87,150 @@ public class JsonCreator {
 		return resultMap;
 	}
 	
+	/*
+		condition	해당 컬럼이 condition 영역에 보일지말지 결정하기 옵션
+		validation	해당 컬럼의 validation(rules)을 결정하기 위한 옵션
+		updateFormItem	해당 컬럼의 updateFormItem을 결정하기 위한 옵션
+		
+		columnType	DB SCRIPT 생성시에 사용되는 db data type을 위한 옵션	"columnType": "String"	String (문자형),int (정수형)
+		columnSize	DB SCRIPT 생성시에 사용되는 db data size를 위한 옵션	"columnSize": "30"	
+		notNull	DB SCRIPT 생성시에 사용되는 NULL 여부를 위한 옵션	"notNull": "Y"	YN
+		primaryKey	DB SCRIPT 생성시 기본키를 설정하기 위한 옵션	"primaryKey": "Y"	YN
+		unique	DB SCRIPT 생성시 UNIQUE를 설정하기 위한 옵션	"unique": "Y"	YN
+	 * */
 	private static String makeColumns(List<String> columns) {
-		boolean isEnum = false;
-		boolean isSelectType = false;
 		String column_temp = "";
 		String column_content = "";
 		
+		Scanner sc = new Scanner(System.in);
+		String newLine = System.lineSeparator();
 		
-		/*
-		 		condition	해당 컬럼이 condition 영역에 보일지말지 결정하기 옵션
-				validation	해당 컬럼의 validation(rules)을 결정하기 위한 옵션
-				updateFormItem	해당 컬럼의 updateFormItem을 결정하기 위한 옵션
-				
-				columnType	DB SCRIPT 생성시에 사용되는 db data type을 위한 옵션	"columnType": "String"	String (문자형),int (정수형)
-				columnSize	DB SCRIPT 생성시에 사용되는 db data size를 위한 옵션	"columnSize": "30"	
-				notNull	DB SCRIPT 생성시에 사용되는 NULL 여부를 위한 옵션	"notNull": "Y"	YN
-				primaryKey	DB SCRIPT 생성시 기본키를 설정하기 위한 옵션	"primaryKey": "Y"	YN
-				unique	DB SCRIPT 생성시 UNIQUE를 설정하기 위한 옵션	"unique": "Y"	YN
-		 * */
+		
 		List<String> resultBody = new ArrayList<>();
+		List<String> qKeys = Arrays.asList("messageKr", "messageEn", "searchYn", "listYn", "typeYn");
+		List<String> orderList = new ArrayList<>(); // 아래 응답 중 listYn Y인 것들의 순서 관리용 리스트.
+		List<String> questions = Arrays.asList(
+				"칼럼명 한국어", "칼럼명 영어"
+				, "검색조건에 포함할 것인가요? (Y/N, 미입력시 N)"
+				, "리스트에 출력할 것인가요? (Y/N, 미입력시 N)"
+				, "타입을 적용하실건가요? (Y/N, 미입력시 N)"
+			);
+		
+		Map<String, String> qaMap = new HashMap<>();
+		qaMap.put("typeq1", "타입을 입력해주세요. (select, date, switch ..)");
+		qaMap.put("typeq1-1", "다중 select를 사용하실건가요? (Y/N, 미입력시 N)");
+		
+		boolean usingEnum = false;
+		
 		for(int i = 0; i < columns.size(); i ++) {
+			Map<String, String> answers = new HashMap<>();
 			String colName = columns.get(i);
-			String formIdx = String.valueOf(i + 1);
+			String qKey = "";
+			String listYn = null;
+			String searchYn = null;
+			
+			for(int j = 0; j < questions.size(); j ++) {
+				String question = questions.get(j);
+				
+				System.out.println(newLine + "---------------------------------------" + newLine);
+				System.out.println( colName + " " + question + " : ");
+				System.out.println(newLine + "---------------------------------------" + newLine);
+				
+				String answer = sc.nextLine();
+				qKey = qKeys.get(j);
+				
+				if(qKey.contains("Yn")) {
+					String upperAnswer = answer.length() == 0 ? "N" : answer.toUpperCase();
+					if("Y".equals(upperAnswer) || "N".equals(upperAnswer)) {
+						answers.put(qKey, upperAnswer);
+					} else {
+						j --;
+					}
+				} else {
+					answers.put(qKey, answer);
+				} 
+				
+				listYn = answers.get("listYn");
+				searchYn = answers.get("searchYn");
+				
+				if("Y".equals(listYn)) {
+					orderList.add(colName);
+					String formIdx = String.valueOf(orderList.indexOf(colName) + 1);
+					answers.put("formIdx", formIdx);
+				}
+			}
+			
+			boolean usingType = false;
+			String typeName = "";
+			String multiSelect = "N";
+			
+			String answer = "";
+			List<String> typesCan = Arrays.asList("select", "date", "switch", "textarea");
+			if("Y".equals(answers.get("typeYn"))) {
+				usingType = true;
+				do {
+					System.out.println(newLine + "---------------------------------------" + newLine);
+					System.out.println( colName + " " + qaMap.get("typeq1") + " : ");
+					System.out.println(newLine + "---------------------------------------" + newLine);
+					answer = sc.nextLine().toLowerCase();
+				} while( !typesCan.contains(answer));
+				
+				typeName = answer;
+				
+				if("select".equals(typeName)) {
+					do {
+						System.out.println(newLine + "---------------------------------------" + newLine);
+						System.out.println( colName + " " + qaMap.get("typeq1-1") + " : ");
+						System.out.println(newLine + "---------------------------------------" + newLine);
+						answer = sc.nextLine().toUpperCase();
+						if(answer.length() == 0) {
+							answer = "N";
+						}
+						multiSelect = answer;
+					} while( !"Y".equals(answer) && !"N".equals(answer));
+					
+					qaMap.put("enumq1", "ENUM을 적용하실 건가요? (Y/N DEFAULT N)");
+					qaMap.put("enumq2", "사용할 ENUM을 한국어로 입력해주세요. [ex] 등록, 삭제");
+					qaMap.put("enumq3", "사용할 ENUM을 영어로 입력해주세요. [ex] REGISTER, DELETE");
+					String[] checkEnumAnswer = null;
+					
+					do {
+						System.out.println(newLine + "---------------------------------------" + newLine);
+						System.out.println( colName + " " + qaMap.get("enumq1") + " : ");
+						System.out.println(newLine + "---------------------------------------" + newLine);
+						answer = sc.nextLine().toUpperCase();
+						if("Y".equals(answer)) {
+							usingEnum = true;
+						} else if(answer.length() == 0) {
+							answer = "N";
+						}
+					}while(!"Y".equals(answer) && !"N".equals(answer));
+					
+					if(usingEnum) {
+						do {
+							System.out.println(newLine + "---------------------------------------" + newLine);
+							System.out.println( colName + " " + qaMap.get("enumq2") + " : ");
+							System.out.println(newLine + "---------------------------------------" + newLine);
+							answer = sc.nextLine();
+							checkEnumAnswer = answer.split(", ");
+						}while(checkEnumAnswer.length == 0);
+						
+						qaMap.put("enumAKor", answer);
+						checkEnumAnswer = null;
+						
+						do {
+							System.out.println(newLine + "---------------------------------------" + newLine);
+							System.out.println( colName + " " + qaMap.get("enumq3") + " : ");
+							System.out.println(newLine + "---------------------------------------" + newLine);
+							answer = sc.nextLine().toUpperCase();
+							checkEnumAnswer = answer.split(", ");
+						}while(checkEnumAnswer.length == 0);
+						
+						qaMap.put("enumAEng", answer);
+					}
+				}
+			}
+			
 			column_temp = "{\r\n"
 					+ "				\""+ colName +"\":\r\n"
 					+ "				{\r\n"
@@ -116,29 +240,34 @@ public class JsonCreator {
 			
 			column_content = "					\"columnType\": \"String\",\r\n"
 					+"					\"columnSize\": \"50\",\r\n"
-					+"					\"header\": \"Y\",\r\n"
-					+"					\"form\": \"Y\",\r\n"
-					+"					\"condition\": \"Y\",\r\n"
+					+"					\"header\": \""+listYn+"\",\r\n"
+					+"					\"form\": \""+listYn+"\",\r\n"
+					+"					\"condition\": \""+searchYn+"\",\r\n"
 					+"					\"validation\": \"required\",\r\n"
 					+"					\"updateFormItem\": \"Y\",\r\n"
 					+"					\"updateMode\": \"invisible\",\r\n"
-					+"					\"messageKr\": \"칼럼명한국어\",\r\n"
-					+"					\"messageEn\": \"칼럼명영어\",\r\n"
-					+"					\"formOrder\": "+ formIdx + "\r\n";
+					+"					\"messageKr\": \""+answers.get("messageKr")+"\",\r\n"
+					+"					\"messageEn\": \""+answers.get("messageEn")+"\",\r\n";
 			
-			if(isEnum) {
+			if("Y".equals(listYn)) {
+				String formIdx = answers.get("formIdx");
+				column_content += "					\"formOrder\": "+ formIdx + "\r\n";
+			}
+			
+			if(usingType) {
+				column_content += ""
+						+"					\"type\": \"" + typeName + "\",\r\n"
+						+"					\"selectMultiple\": \"" + multiSelect + "\",\r\n";
+			}
+			
+			if(usingEnum) {
 				column_content += ""
 						+"					\"enumType\": \"Y\",\r\n"
-						+"					\"enum\": \"REGISTER, DELETE\",\r\n"
-						+"					\"enumKr\": \"등록, 삭제\",\r\n"
-						+"					\"enumEn\": \"REGISTER, DELETE\",\r\n";
+						+"					\"enum\": \""+qaMap.get("enumAEng")+"\",\r\n"
+						+"					\"enumKr\": \""+qaMap.get("enumAKor")+"\",\r\n"
+						+"					\"enumEn\": \""+qaMap.get("enumAEng")+"\",\r\n";
 			}
 			
-			if(isSelectType) {
-				column_content += ""
-						+"					\"type\": \"select\",\r\n"
-						+"					\"selectMultiple\": \"Y\",\r\n";
-			}
 			column_temp = column_temp.replace("@{column_content}", column_content);
 			resultBody.add(column_temp);
 		}

@@ -30,43 +30,19 @@
 					"columnSize": "50",
 					"header": "Y",
 					"form": "Y",
-					"condition": "Y",
+					"condition": "N",
 					"validation": "required",
 					"updateFormItem": "Y",
 					"updateMode": "invisible",
-					"messageKr": "칼럼명한국어",
-					"messageEn": "칼럼명영어",
+					"messageKr": "a",
+					"messageEn": "a",
 					"formOrder": 1
-				}
-			}, {
-				"userNm":
-				{
-					"columnType": "String",
-					"columnSize": "50",
-					"header": "Y",
-					"form": "Y",
-					"condition": "Y",
-					"validation": "required",
-					"updateFormItem": "Y",
-					"updateMode": "invisible",
-					"messageKr": "칼럼명한국어",
-					"messageEn": "칼럼명영어",
-					"formOrder": 2
-				}
-			}, {
-				"age":
-				{
-					"columnType": "String",
-					"columnSize": "50",
-					"header": "Y",
-					"form": "Y",
-					"condition": "Y",
-					"validation": "required",
-					"updateFormItem": "Y",
-					"updateMode": "invisible",
-					"messageKr": "칼럼명한국어",
-					"messageEn": "칼럼명영어",
-					"formOrder": 3
+					"type": "select",
+					"selectMultiple": "N",
+					"enumType": "Y",
+					"enum": "KOKO, NONO",
+					"enumKr": "코코, 노노",
+					"enumEn": "KOKO, NONO",
 				}
 			}
 		]
